@@ -1,5 +1,6 @@
 package com.myschool.tp2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -40,6 +41,15 @@ public class WelcomeActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_logout){
+            SharedPreferences currentLogin = getSharedPreferences("CURRENT_LOGIN", 0);
+            SharedPreferences.Editor currentLoginEditor = currentLogin.edit();
+            currentLoginEditor.clear();
+            currentLoginEditor.commit();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            finish();
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

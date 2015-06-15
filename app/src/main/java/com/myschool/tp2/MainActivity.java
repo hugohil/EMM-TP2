@@ -20,8 +20,10 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences settings = getSharedPreferences("CURRENT_LOGIN", 0);
-        if(settings != null){
-            // TODO
+        String email = settings.getString("email", "");
+        if(email != ""){
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
         }
     }
 

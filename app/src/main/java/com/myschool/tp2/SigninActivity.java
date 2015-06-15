@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -124,6 +126,10 @@ public class SigninActivity extends Activity implements LoaderCallbacks<Cursor> 
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
+        } else if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
@@ -237,7 +243,7 @@ public class SigninActivity extends Activity implements LoaderCallbacks<Cursor> 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
+                new ArrayAdapter<String>(SigninActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -286,7 +292,22 @@ public class SigninActivity extends Activity implements LoaderCallbacks<Cursor> 
             showProgress(false);
 
             if (success) {
-                finish();
+                String email = mEmailView.getText().toString();
+                String pass= mPasswordView.getText().toString();
+                SharedPreferences settings = getSharedPreferences(email, 0);
+                if(email == settings.getString("email", "") && pass == settings.getString("pass", "")){
+                    SharedPreferences currentLogin = getSharedPreferences("CURRENT_LOGIN", 0);
+                    SharedPreferences.Editor currentLoginEditor = currentLogin.edit();
+                    currentLoginEditor.putString("email", email);
+                    currentLoginEditor.commit();
+
+                    Intent intent = new Intent(getBaseContext(), WelcomeActivity.class);
+                    finish();
+                    startActivity(intent);
+                } else {
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
+                }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

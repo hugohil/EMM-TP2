@@ -115,22 +115,22 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError(getString(R.string.signin_error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            mEmailView.setError(getString(R.string.signin_error_field_required));
             focusView = mEmailView;
             cancel = true;
         } else if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
+            mPasswordView.setError(getString(R.string.signin_error_field_required));
             focusView = mPasswordView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            mEmailView.setError(getString(R.string.signin_error_invalid_email));
             focusView = mEmailView;
             cancel = true;
         }
@@ -292,7 +292,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
             if (success) {
                 String email = mEmailView.getText().toString();
-                SharedPreferences settings = getSharedPreferences("email", 0);
+                SharedPreferences settings = getSharedPreferences(email, 0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("email", email);
                 editor.putString("pass", mPasswordView.getText().toString());
@@ -307,7 +307,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 finish();
                 startActivity(intent);
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.setError(getString(R.string.signin_error_incorrect_password));
                 mPasswordView.requestFocus();
             }
         }

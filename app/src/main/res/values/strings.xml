@@ -8,4 +8,5 @@
     <string name="login_name">Créer un compte</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="welcome_static">"Bienvenue "</string>
+    <string name="logout">Déconexion</string>
 </resources>

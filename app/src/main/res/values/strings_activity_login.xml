@@ -1,0 +1,14 @@
+<resources>
+    <string name="title_activity_login">Créer un compte</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Créer un compte</string>
+    <string name="action_sign_in_short">Créer</string>
+
+    <string name="error_invalid_email">Cette addresse email n\'est pas valide</string>
+    <string name="error_invalid_password">Ce mot de passe n\'est pas valide</string>
+    <string name="error_incorrect_password">Ce mot de passe n\'est pas correct</string>
+    <string name="error_field_required">Ce champ est requis</string>
+</resources>

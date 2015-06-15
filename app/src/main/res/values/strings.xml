@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TP2</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="button_create_account">Créer un compte</string>
+    <string name="button_have_account">J\'ai déjà un compte</string>
+    <string name="login_name">Créer un compte</string>
+</resources>

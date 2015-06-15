@@ -1,34 +1,32 @@
 package com.myschool.tp2;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import java.io.Console;
+import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class WelcomeActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        setContentView(R.layout.activity_welcome);
 
         SharedPreferences settings = getSharedPreferences("CURRENT_LOGIN", 0);
-        if(settings != null){
-            // TODO
-        }
+        String email = settings.getString("email", "John Doe");
+
+        TextView welcomeText = (TextView) findViewById(R.id.welcomeText);
+        welcomeText.setText(getString(R.string.welcome_static) + email);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_welcome, menu);
         return true;
     }
 
@@ -45,15 +43,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void createAccount(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    public void login(View view){
-        Intent intent = new Intent(this, SigninActivity.class);
-        startActivity(intent);
     }
 }

@@ -6,4 +6,6 @@
     <string name="button_create_account">Créer un compte</string>
     <string name="button_have_account">J\'ai déjà un compte</string>
     <string name="login_name">Créer un compte</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="welcome_static">"Bienvenue "</string>
 </resources>

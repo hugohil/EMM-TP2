@@ -5,10 +5,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.ContentResolver;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -34,7 +33,7 @@ import java.util.List;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class SigninActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -124,10 +123,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
-            cancel = true;
-        } else if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
             cancel = true;
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
@@ -291,21 +286,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                String email = mEmailView.getText().toString();
-                SharedPreferences settings = getSharedPreferences("email", 0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("email", email);
-                editor.putString("pass", mPasswordView.getText().toString());
-                editor.commit();
-
-                SharedPreferences currentLogin = getSharedPreferences("CURRENT_LOGIN", 0);
-                SharedPreferences.Editor currentLoginEditor = currentLogin.edit();
-                currentLoginEditor.putString("email", email);
-                currentLoginEditor.commit();
-
-                Intent intent = new Intent(getBaseContext(), WelcomeActivity.class);
                 finish();
-                startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
